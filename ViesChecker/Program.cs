@@ -11,6 +11,8 @@ namespace ViesChecker
             private static IConfiguration _iconfiguration;
             static void Main(string[] args)
             {
+
+            GetAppSettingsFile();
             Console.WriteLine("Pleas enter VAT number");
             var vatInput = Console.ReadLine();
 
@@ -21,43 +23,53 @@ namespace ViesChecker
                 var checkVatInput=listCountryModel.Find(item=>
                    item.VatNumber.Contains(vatInput)
                 );
+                if(checkVatInput==null)
+                {
+                    Console.WriteLine("the vat nr isn't corret.");
+                }
+                else
+                {
+                    Console.WriteLine("Pleas enter Country Code");
+                    var countryInput = Console.ReadLine();
+                   
+                    var checkCountryInput = listCountryModel.Find(item =>
+                         item.CountryCode.Contains(countryInput)
+                    );
+                    if (checkCountryInput == null)
+                    {
+                        Console.WriteLine("the country code isn't corret.");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"{checkCountryInput.Name}");
+                        Console.WriteLine($"{checkCountryInput.Address}");
+                        Console.WriteLine($"{checkCountryInput.VatNumber}");
+                        Console.WriteLine($"{checkCountryInput.City}");
+                        Console.WriteLine($"{checkCountryInput.Country}");
+                        Console.WriteLine($"{checkCountryInput.RequestDate}");
+                    }
+
+                }
+               
 
             }
             catch (Exception ex)
             {
 
                 throw ex;
+                
             }
 
-            Console.WriteLine("Pleas enter Country Code");
-            var countryInput = Console.ReadLine();
+           
 
 
-            try
-            {
-                var checkerDAL = new CheckerDAL(_iconfiguration);
-                var listCountryModel = checkerDAL.GetList();
-                var checkCountryInput = listCountryModel.Find(item =>
-                     item.CountryCode.Contains(countryInput)
-                );
+         
 
-            }
-            catch (Exception ex)
-            {
+           
 
-                throw ex;
-            }
-
-            if ()
-            {
-                Console.WriteLine("info..");
-            }
-            else
-            {
-                Console.WriteLine("incorrect input");
-            }
-            GetAppSettingsFile();
-                PrintCountries();
+            //from csharp corner demo
+          
+                //PrintCountries();
             }
             static void GetAppSettingsFile()
             {
@@ -73,7 +85,7 @@ namespace ViesChecker
 
             listCountryModel.ForEach(item =>
             {
-                Console.WriteLine(item.Country[i]);
+                //Console.WriteLine(item.Country[i]);
             });
             Console.WriteLine("Press any key to stop.");
                 Console.ReadKey();

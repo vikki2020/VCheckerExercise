@@ -40,7 +40,7 @@ namespace ViesChecker.DAL
                             Name = rdr[4].ToString(),
                             CountryCode = rdr[5].ToString(),
                             VatNumber = rdr[6].ToString(),
-                            //RequestDate= ((DateTime)rdr[7]),
+                            RequestDate = ((DateTime)rdr[7]),
                             IsValid = Convert.ToBoolean(rdr[8])
                         });
                     }
